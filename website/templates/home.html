@@ -1,11 +1,15 @@
-{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content
-%}
+{% extends "base.html" %} 
+{% block title %}Home{% endblock %} 
+
+{% block content%}
 <h1 align="center">Notes</h1>
 <ul class="list-group list-group-flush" id="notes">
   {% for note in user.notes %}
   <li class="list-group-item">
+    <!-- deleteNote -> js func -->
     {{ note.data }}
     <button type="button" class="close" onClick="deleteNote({{ note.id }})">
+      <!-- &times; => fancey x icon -->
       <span aria-hidden="true">&times;</span>
     </button>
   </li>

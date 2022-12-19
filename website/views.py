@@ -4,6 +4,7 @@ from .models import Note
 from . import db
 import json
 
+# blueprint -> allows you sperate app out and can have the views/routes separated to multiple files
 views = Blueprint('views', __name__)
 
 
@@ -21,12 +22,16 @@ def home():
             db.session.commit()
             flash('Note added!', category='success')
 
+    #user=current_user -> ref user and check if authenticated
+    #this is used to display logout btn or not etc
     return render_template("home.html", user=current_user)
 
-
+# cuz its in form, need to use json
 @views.route('/delete-note', methods=['POST'])
 def delete_note():
+    #load it as json object/python dictionary
     note = json.loads(request.data)
+    #access note id attribute
     noteId = note['noteId']
     note = Note.query.get(noteId)
     if note:
@@ -34,4 +39,5 @@ def delete_note():
             db.session.delete(note)
             db.session.commit()
 
-    return jsonify({})
+    # return empty response object
+    return jsonify({}) 

@@ -20,13 +20,12 @@
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbar"
+        class="navbar-toggler" type="button"
+        data-toggle="collapse" data-target="#navbar"
       >
         <span class="navbar-toggler-icon"></span>
       </button>
+
       <div class="collapse navbar-collapse" id="navbar">
         <div class="navbar-nav">
           {% if user.is_authenticated %}
@@ -39,26 +38,34 @@
         </div>
       </div>
     </nav>
+<!-- define a var called message & Get messages with its categories that have been flashed -->
+<!-- Below will show the messages in a for loop if more than 1 triggered -->
+    {% with messages = get_flashed_messages(with_categories=true) %} 
+      {% if messages %} 
+      <!-- By doing this, telling for to look at both category & message -->
+        {% for category, message in messages %} 
+          {% if category == 'error' %}
 
-    {% with messages = get_flashed_messages(with_categories=true) %} {% if
-    messages %} {% for category, message in messages %} {% if category ==
-    'error' %}
-    <div class="alert alert-danger alter-dismissable fade show" role="alert">
-      {{ message }}
-      <button type="button" class="close" data-dismiss="alert">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    {% else %}
-    <div class="alert alert-success alter-dismissable fade show" role="alert">
-      {{ message }}
-      <button type="button" class="close" data-dismiss="alert">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    {% endif %} {% endfor %} {% endif %} {% endwith %}
+      <div class="alert alert-danger alter-dismissable fade show" role="alert">
+        {{ message }}
+        <button type="button" class="close" data-dismiss="alert">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      {% else %}
+      <div class="alert alert-success alter-dismissable fade show" role="alert">
+        {{ message }}
+        <button type="button" class="close" data-dismiss="alert">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      {% endif %} {% endfor %} {% endif %} 
+    {% endwith %}
 
-    <div class="container">{% block content %} {% endblock %}</div>
+    <div class="container">
+      {% block content %} {% endblock %}
+    </div>
+
     <script
       src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
       integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
@@ -81,3 +88,7 @@
     ></script>
   </body>
 </html>
+
+<!-- src="{{ url_for('static', filename='index.js') }}" 
+param(folder name, file); this is py func
+-->
