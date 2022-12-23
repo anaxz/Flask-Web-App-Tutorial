@@ -2,10 +2,11 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from os import path
 from flask_login import LoginManager
+# from flask_mail import Mail
 
 db = SQLAlchemy()
 DB_NAME = "database.db"
-
+# mail = Mail()
 
 def create_app():
     app = Flask(__name__) #intialise flask
@@ -14,6 +15,7 @@ def create_app():
     # points to where the db is stored
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
     db.init_app(app) #use db with app
+    # mail.init_app(app)
 
     from .views import views
     from .auth import auth
